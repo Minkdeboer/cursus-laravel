@@ -24,13 +24,13 @@
             </div>
             <div class="card-body">
                 
-            <form action="{{ route('customers.store') }}" method="POST">
+            <form action="{{ route('customers.store') }}" method="POST" enctype="multipart/form-data">
               @csrf
                 <div class="row">
                 <div class="col-md-12 mb-3">
                     <div class="form-group">
                         <label for="">Image</label>
-                        <input type="file" class="form-control" name="image" >
+                        <input type="file" class="form-control" name="image">
                     </div>
                 </div>
                 <div class="col-md-6 mb-3">
