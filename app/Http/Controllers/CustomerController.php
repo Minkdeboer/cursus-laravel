@@ -13,9 +13,16 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
+    $order = $request->has('order') && in_array(strtolower($request->order), ['asc', 'desc']) ? $request->order : 'desc';
+    $customers = Customer::when($request->has('search'), function($query) use ($request){
+        $query->where('first_name', 'LIKE', "%{$request->search}%")
+        ->orWhere('last_name', 'LIKE', "%{$request->search}%")
+        ->orWhere('phone', 'LIKE', "%{$request->search}%")
+        ->orWhere('email', 'LIKE', "%{$request->search}%")
+        ->orWhere('about', 'LIKE', "%{$request->search}%");
+    })->orderBy('id', $order)->get();
         return view('customer.index', compact('customers'));
     }
 
@@ -102,6 +109,10 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $customer = Customer::findorfail($id);
+        File::delete(public_path($customer->image));
+        $customer->delete();
+
+        return redirect()->route('customers.index');
     }
 }

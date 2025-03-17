@@ -12,21 +12,22 @@
                     <a href="{{ route('customer.create') }}" class="btn" style="background-color: #4643d3; color: white;"><i class="fas fa-plus"></i> Create Customer</a>
                 </div>
                 <div class="col-md-8">
-                    <form action="">
+                    <form action="{{ route('customers.index') }}" method="GET">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search anything..." aria-describedby="button-addon2">
+                            <input type="text" class="form-control" placeholder="Search anything..." aria-describedby="button-addon2" name="search" value="{{ request()->search }}">
                             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-2">
-
+                  <form action="{{ route('customers.index') }}" method="GET" class="form-order">
                     <div class="input-group mb-3">
-                        <select class="form-select" name="" id="">
-                            <option value="">Newest to Old</option>
-                            <option value="">Old to Newest</option>
+                        <select class="form-select" name="order" id="" onchange="$('.form-order').submit()"> 
+                            <option @selected(request()->order == 'desc') value="desc">Newest to Oldest</option>
+                            <option @selected(request()->order == 'asc')value="asc">Oldest to Newest</option>
                         </select>
                     </div>
+                </form>
                 </div>
                 </div>
                   
@@ -58,7 +59,11 @@
                         <td>
                             <a href="{{ route('customers.edit', $customer->id) }}" style="color: #2c2c2c;" class="ms-1 me-1"><i class="far fa-edit"></i></a>
                             <a href="{{ route('customers.show', $customer->id) }}" style="color: #2c2c2c;" class="ms-1 me-1"><i class="far fa-eye"></i></a>
-                            <a href="" style="color: #2c2c2c;" class="ms-1 me-1"><i class="fas fa-trash-alt"></i></a>
+                            <a href="javascript:;" onclick="$('.form-{{ $customer->id }}').submit()" style="color: #2c2c2c;" class="ms-1 me-1"><i class="fas fa-trash-alt"></i></a>
+                            <form class="form-{{ $customer->id }}" action="{{ route('customers.destroy', $customer->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                            </form>
                         </td>
                       </tr>
                       @endforeach
