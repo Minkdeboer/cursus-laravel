@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Models\Address;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
@@ -14,6 +17,35 @@ Route::delete('customers/trash/{customer}', [CustomerController::class, 'forceDe
 Route::resource('customers', CustomerController::class)->names([
     'create' => 'customer.create'
 ]);
+
+Route::get('/users', function() {
+       $users = User::all();
+       $address = Address::all();
+       return view ('test', compact('users'));
+});
+
+Route::get('/posts', function(){
+    
+    // Post::insert([
+    //     [
+    //         'user_id' => 1,
+    //         'name' => 'Learn Laravel'
+    //     ],
+    //     [
+    //         'user_id' => 1,
+    //         'name' => 'Learn Javascript'
+    //     ],
+    //     [
+    //         'user_id' => 2,
+    //         'name' => 'Learn PHP'
+    //     ]
+    // ]);
+
+   $posts = Post::all();
+   return view('post', compact('posts'));
+
+});
+
 
 Route::get('/join', function(){
     //   $usersWithOrders = DB::table('users')
@@ -31,14 +63,14 @@ Route::get('/join', function(){
     // ->select('orders.product_name', 'users.name')
     // ->get();
 
-    $fullOuterJoin = DB::table('users')
-    ->leftJoin('orders', 'users.id', '=', 'orders.user_id')
-    ->select('users.name', 'orders.product_name')
-    ->unionAll(
-        DB::table('users')
-        ->rightJoin('orders', 'users.id', '=', 'orders.user_id')
-        ->select('users.name', 'orders.product_name')
-    );
+    // $fullOuterJoin = DB::table('users')
+    // ->leftJoin('orders', 'users.id', '=', 'orders.user_id')
+    // ->select('users.name', 'orders.product_name')
+    // ->unionAll(
+    //     DB::table('users')
+    //     ->rightJoin('orders', 'users.id', '=', 'orders.user_id')
+    //     ->select('users.name', 'orders.product_name')
+    // );
 
-      dd($fullOuterJoin);
+    //   dd($fullOuterJoin);
 });
