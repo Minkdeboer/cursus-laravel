@@ -3,8 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Models\Address;
+use App\Models\Country;
 use App\Models\Post;
+use App\Models\State;
 use App\Models\User;
+use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
@@ -26,20 +29,24 @@ Route::get('/users', function() {
 
 Route::get('/posts', function(){
     
-    // Post::insert([
+    // Tag::insert([
     //     [
-    //         'user_id' => 1,
-    //         'name' => 'Learn Laravel'
+            
+    //         'name' => 'Laravel'
     //     ],
     //     [
-    //         'user_id' => 1,
-    //         'name' => 'Learn Javascript'
+           
+    //         'name' => 'Javascript'
     //     ],
     //     [
-    //         'user_id' => 2,
-    //         'name' => 'Learn PHP'
+            
+    //         'name' => 'PHP'
     //     ]
     // ]);
+    $post = Post::first();
+    // $tag = Tag::first();
+
+    // $post->tags()->synch([2,3]);
 
    $posts = Post::all();
    return view('post', compact('posts'));
@@ -73,4 +80,29 @@ Route::get('/join', function(){
     // );
 
     //   dd($fullOuterJoin);
+});
+
+Route::get('location', function(){
+    // $country = new Country(['name' => 'United States']);
+    // $country->save();
+
+    // $state = new State(['name' => 'California']);
+    // $country->states()->save($state);
+
+    // $state->cities()->createMany([
+    //     ['name' => 'Los Angeles'],
+    //     ['name' => 'San Francisco']
+    // ]);
+
+    $country = Country::first();
+
+
+    return view('location', compact('country'));
+});
+
+Route::get('image', function() {
+      $user = User::find(1);
+      $user->image()->create([
+        'path' => '/upload/user_one.jpg'
+      ]);
 });
