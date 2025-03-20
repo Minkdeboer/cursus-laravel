@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\TestMiddleware;
+use App\Http\Middleware\CheckRoleMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,7 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+
+        $middleware->appendToGroup('test-group', [
+           TestMiddleware::class,
+           CheckRoleMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

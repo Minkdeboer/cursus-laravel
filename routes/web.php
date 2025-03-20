@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PostController;
+use App\Http\Middleware\CheckRoleMiddleware;
 use App\Models\Address;
 use App\Models\Country;
 use App\Models\Post;
@@ -106,3 +108,15 @@ Route::get('image', function() {
         'path' => '/upload/user_one.jpg'
       ]);
 });
+
+// Route::get('/post', [PostController::class, 'index'])->name('post.index');
+// Route::post('/post', [PostController::class, 'handlepost'])->name('post.store')
+// ->middleware(CheckRoleMiddleware::class);
+
+// Route::group(['middleware' => CheckRoleMiddleware::class ], function(){
+//     Route::get('/post', [PostController::class, 'index'])->name('post.index');
+//     Route::post('/post', [PostController::class, 'handlepost'])->name('post.store');
+// });
+
+Route::get('/post', [PostController::class, 'index'])->name('post.index')->middleware('test-group');
+Route::post('/post', [PostController::class, 'handlepost'])->name('post.store');
