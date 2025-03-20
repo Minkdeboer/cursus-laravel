@@ -16,11 +16,11 @@ class CheckRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $user = User::findorFail($request->user_id);
+        $user = User::findorFail($request->id);
         if($user->role == 'admin');{
         return $next($request);
         }
-
+                    
         return abort(404);
     }
 }

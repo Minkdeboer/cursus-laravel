@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Models\Customer;
 use Illuminate\Support\Facades\File;
+use Illuminate\View\View;
 
 class CustomerController extends Controller
 {
@@ -63,8 +64,9 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Customer $customer): View
     {
+            dd($customer);
         $customer = Customer::findorfail($id);
         return view('customer.show', compact('customer'));
     }

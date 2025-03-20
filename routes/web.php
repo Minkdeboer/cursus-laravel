@@ -16,6 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 Route::get('customers/trash', [CustomerController::class, 'trashIndex'])->name('customer.trash');
+Route::get('customers/{customer}/show', [CustomerController::class, 'show'])->name('customer.show');
 Route::get('customers/restore/{customer}', [CustomerController::class, 'restore'])->name('customers.restore');
 Route::delete('customers/trash/{customer}', [CustomerController::class, 'forceDestroy'])->name('customers.force.destroy');
 
@@ -54,7 +55,6 @@ Route::get('/posts', function(){
    return view('post', compact('posts'));
 
 });
-
 
 Route::get('/join', function(){
     //   $usersWithOrders = DB::table('users')
@@ -118,5 +118,13 @@ Route::get('image', function() {
 //     Route::post('/post', [PostController::class, 'handlepost'])->name('post.store');
 // });
 
-Route::get('/post', [PostController::class, 'index'])->name('post.index')->middleware('test-group');
-Route::post('/post', [PostController::class, 'handlepost'])->name('post.store');
+// Route::get('/post', [PostController::class, 'index'])->name('post.index');
+// Route::post('/post', [PostController::class, 'handlepost'])->name('post.store')->middleware(['checkRole']);
+
+// Route::get('user/dashboard', function() {
+//      dd('User Dashboard');
+// })->middleware('checkRole');
+
+// Route::get('admin/dashboard', function() {
+//      dd('checkRole');
+// });
