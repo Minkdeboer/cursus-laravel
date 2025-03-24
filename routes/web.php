@@ -55,3 +55,7 @@ Route::post('send-mail', function(Request $request){
 Mail::to($request->email)->queue(new SendMail($request->message));
 dd("Email Sent");
 })->name('send.mail');
+
+Route::get('components', function(){
+    return view('blade-component');
+});
