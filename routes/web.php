@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\SendMail;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -58,4 +59,10 @@ dd("Email Sent");
 
 Route::get('components', function(){
     return view('blade-component');
+});
+
+Route::get('session', function(Request $request) {
+    $request->session()->put('foo', 'bar');
+    // Session::put('test', 'bar');
+    return view('session');
 });
