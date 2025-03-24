@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('post.store') }}" method="POST">
+    {{-- <form action="{{ route('post.store') }}" method="POST">
         @csrf
         <div>
             <input type="hidden" value="1" name="user_id">
@@ -17,6 +17,12 @@
             <br>
             <button type="submit">Submit</button>
         </div>
-    </form>
+    </form> --}}
+    <div>
+        @foreach ($posts as $post)
+            <a href="{{ route('post.edit', $post->id) }}">{{ $post->name }}</a>
+            <br>
+        @endforeach
+    </div>
 </body>
 </html>
