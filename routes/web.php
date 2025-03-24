@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Mail\SendMail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,3 +33,25 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::resource('post', PostController::class)->middleware('auth');
+
+Route::get('/post', function(){
+    return to_route('post.create', ['user' => 'john doe']);
+})->name('post.index');
+
+Route::get('/post/create', function(){
+    dd(request());
+})->name('post.create');
+
+Route::get('send-mail', function(){
+    return view ('send-mail');
+});
+
+Route::post('send-mail', function(Request $request){
+//    Mail::raw($request->message, function($message) use ($request) {
+//         $message->to($request->email)
+//                 ->subject('Laravel Test Email');
+//    });    
+
+Mail::to($request->email)->queue(new SendMail($request->message));
+dd("Email Sent");
+})->name('send.mail');
