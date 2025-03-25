@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-    return view('layouts.app');
+    return view('layouts.pages.home');
 });
 
 Route::get('/dashboard', function () {
