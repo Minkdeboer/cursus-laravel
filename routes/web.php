@@ -3,11 +3,14 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\SendMail;
+use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
@@ -65,4 +68,17 @@ Route::get('session', function(Request $request) {
     $request->session()->put('foo', 'bar');
     // Session::put('test', 'bar');
     return view('session');
+});
+
+Route::get('cache', function(){
+    // Cache::put('post', 'post title one', $seconds = 5);   
+    // $value = Cache::get('post'); 
+    // dd($value);
+    // $users = Cache::rememberForever('users', function () {
+    //     return User::all();
+    // });
+   // $users = Cache::forget('users');
+
+    // $users = Cache::pull('users');
+    return view('cache', compact('users'));
 });
