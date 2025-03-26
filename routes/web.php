@@ -32,6 +32,7 @@ require __DIR__.'/auth.php';
 
 Route::resource('product', ProductController::class);
 
+
 // Route::get('/user/dashboard', function(){
 //     // $user = Auth::user();
 //     // if(Auth::check()){
