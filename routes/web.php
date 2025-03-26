@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\SendMail;
 use App\Models\User;
@@ -20,13 +21,6 @@ Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Route::get('/user/dashboard', function(){
-//     // $user = Auth::user();
-//     // if(Auth::check()){
-//     //     dd($user->email);
-//     // }
-//     return view('user-dashboard');
-// })->name('user.dashboard')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,6 +29,17 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::resource('product', ProductController::class);
+
+// Route::get('/user/dashboard', function(){
+//     // $user = Auth::user();
+//     // if(Auth::check()){
+//     //     dd($user->email);
+//     // }
+//     return view('user-dashboard');
+// })->name('user.dashboard')->middleware('auth');
+
 
 // Route::resource('post', PostController::class)->middleware('auth');
 

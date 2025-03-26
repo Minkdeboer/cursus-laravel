@@ -7,7 +7,7 @@
      <div class="card">
         <div class="card-header d-flex justify-content-between">
             <h5>All Products</h5>
-            <a href="" class="btn btn-primary">Create New</a>
+            <a href="{{ route('product.create') }}" class="btn btn-primary">Create New</a>
         </div>
         <div class="card-body">
             <table class="table">
