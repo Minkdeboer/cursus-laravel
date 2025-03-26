@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('path');
-            $table->unsignedInteger('imageable_id');
-            $table->string('imageable_type');
+            $table->string('image')->nullable();
+            $table->string('name');
+            $table->double('price');
+            $table->string('short_description');
+            $table->integer('qty')->default(0);
+            $table->string('sku');
+            $table->text('description');
             $table->timestamps();
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('products');
     }
 };

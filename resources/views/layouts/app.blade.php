@@ -32,7 +32,7 @@
     <!--font-awesome js-->
     <script src="{{ asset('assets-e-commerce/js/Font-Awesome.js') }}"></script>
 
-    <script src="{{ asset('assets/js/tinymce/tinymce.js') }}"></script>
+    <script src="{{ asset('assets-e-commerce/js/tinymce/tinymce.js') }}"></script>
     <!--main/custom js-->
     <script src="{{ asset('assets-e-commerce/js/main.js') }}"></script>
 
