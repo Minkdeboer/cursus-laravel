@@ -9,5 +9,13 @@ class Product extends Model
 {
     use HasFactory; // 
 
-    protected $fillable = ['name', 'price', 'description']; // Adjust fields as needed
+    function colors() {
+        return $this->hasMany(ProductColor::class);
+
+    }
+
+    function Images() {
+        return $this->hasMany(ProductImage::class);
+        
+    }
 }

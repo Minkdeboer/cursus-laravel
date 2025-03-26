@@ -26,7 +26,7 @@
                             
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td><img style="max-width: 150px;" src="{{ asset($product->image) }}" alt=""></td>
+                                <td><img style="max-width: 150px; max-height: 150px;" src="{{ asset($product->image) }}" alt=""></td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->qty }}</td>
