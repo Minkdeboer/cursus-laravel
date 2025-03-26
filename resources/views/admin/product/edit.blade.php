@@ -11,7 +11,7 @@
             <h4 class="pt-3 pb-3 text-primary">Dashboard</h4>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
-                    <h5>Create Products</h5>
+                    <h5>Edit Products</h5>
                     <a href="{{ route('product.index') }}" class="btn btn-primary">Go Back</a>
                 </div>
                 <div class="card-body">

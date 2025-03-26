@@ -17,7 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // Implement product listing if needed
+        $products = Product::all();
+        return view('admin.dashboard', compact('products'));
     }
 
     /**
@@ -94,7 +95,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        // Implement product edit logic if needed
+        return view('admin.product.edit');
     }
 
     /**
