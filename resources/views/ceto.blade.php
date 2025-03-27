@@ -15,7 +15,7 @@
                     <a href="{{ route('product.index') }}" class="btn btn-primary">Go Back</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <div>
@@ -24,17 +24,21 @@
                             <label for="" class="mt-2 mb-2">Image</label>
                             <x-text-input type="file" class="form-control" name="image" />
                         </div>
+                        @foreach ($product->images as $image)
+                                <div>
+                                    <img style="max-width: 100px; max-height: 100px;" src="{{ asset($image->path) }}">
+                                </div>
+                            @endforeach
+                            @foreach ($product->images as $image)
+                                <div>
+                                    <img style="max-width: 100px; max-height: 100px;" src="{{ asset($image->path) }}">
+                                </div>
+                            @endforeach
                         <div class="form-group">
                             <label for="" class="mt-2 mb-2">Images</label>
                             <x-text-input type="file" class="form-control" name="images[]" multiple />
                         </div>
                         <div class="form-group">
-                            @foreach ($product->images as $image)
-
-                            <div>
-                                <img style="max-width: 100px;" src="{{ asset($image->path) }}">
-                            </div>
-                            @endforeach
                             <label for="" class="mt-2 mb-2">Name</label>
                             <x-text-input type="text" class="form-control" name="name"
                                 value="{{ $product->name }}" />
@@ -47,10 +51,10 @@
                                 <label for="">Colors</label>
                                 <x-select-input name="colors[]" multiple>
                                     <option value="">Select</option>
-                                    <option @selected($product->colors->contains('name', 'black')) value="black">Black</option>
-                                    <option @selected($product->colors->contains('name', 'green')) value="green">Green</option>
-                                    <option @selected($product->colors->contains('name', 'red')) value="red">Red</option>
-                                    <option @selected($product->colors->contains('name', 'cyan')) value="cyan">Cyan</option>
+                                    <option @selected(in_array('black', $colors)) value="black">Black</option>
+                                    <option @selected(in_array('green', $colors)) value="green">Green</option>
+                                    <option @selected(in_array('red', $colors)) value="red">Red</option>
+                                    <option @selected(in_array('cyan', $colors)) value="cyan">Cyan</option>
                                 </x-select-input>
                             </div>
                             <div class="form-group mt-2 mb-2">
