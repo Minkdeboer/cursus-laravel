@@ -28,7 +28,23 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('product', ProductController::class);
+//Route::resource('product', ProductController::class);
+
+//je kunt ook een groep aanmaken voor de routes product - is leesbaarder dan een resource (vind ik)
+Route::prefix('product')->as('product.')->middleware(['auth'])->group(function () {
+
+    //GET
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('create', [ProductController::class, 'create'])->name('create');
+    Route::get('{product}/edit', [ProductController::class, 'edit'])->name('edit');
+    Route::get('{product}/show', [ProductController::class, 'show'])->name('show');
+
+    //POST
+    Route::post('store', [ProductController::class, 'store'])->name('store');
+    Route::post('{product}/update', [ProductController::class, 'update'])->name('update');
+    Route::post('{product}/destroy', [ProductController::class, 'destroy'])->name('destroy');
+
+});
 
 
 // Route::get('/user/dashboard', function(){
@@ -58,7 +74,7 @@ Route::resource('product', ProductController::class);
 // //    Mail::raw($request->message, function($message) use ($request) {
 // //         $message->to($request->email)
 // //                 ->subject('Laravel Test Email');
-// //    });    
+// //    });
 
 // Mail::to($request->email)->queue(new SendMail($request->message));
 // dd("Email Sent");
@@ -75,8 +91,8 @@ Route::resource('product', ProductController::class);
 // });
 
 // Route::get('cache', function(){
-//     // Cache::put('post', 'post title one', $seconds = 5);   
-//     // $value = Cache::get('post'); 
+//     // Cache::put('post', 'post title one', $seconds = 5);
+//     // $value = Cache::get('post');
 //     // dd($value);
 //     // $users = Cache::rememberForever('users', function () {
 //     //     return User::all();

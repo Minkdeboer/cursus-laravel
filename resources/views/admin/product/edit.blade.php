@@ -29,7 +29,8 @@
                             <x-text-input type="file" class="form-control" name="images[]" multiple />
                         </div>
                         <div class="form-group">
-                            @foreach ($products->images as $image)
+                            @foreach ($product->images as $image)
+
                             <div>
                                 <img style="max-width: 100px;" src="{{ asset($image->path) }}">
                             </div>
@@ -44,10 +45,10 @@
                                 <label for="">Colors</label>
                                 <x-select-input name="colors[]" multiple>
                                     <option value="">Select</option>
-                                    <option @selected(in_array('black', $colors)) value="black">Black</option>
-                                    <option @selected(in_array('green', $colors)) value="green">Green</option>
-                                    <option @selected(in_array('red', $colors)) value="red">Red</option>
-                                    <option @selected(in_array('cyan', $colors)) value="cyan">Cyan</option>
+                                    <option @selected($product->colors->contains('name', 'black')) value="black">Black</option>
+                                    <option @selected($product->colors->contains('name', 'green')) value="green">Green</option>
+                                    <option @selected($product->colors->contains('name', 'red')) value="red">Red</option>
+                                    <option @selected($product->colors->contains('name', 'cyan')) value="cyan">Cyan</option>
                                 </x-select-input>
                             </div>
                             <div class="form-group mt-2 mb-2">

@@ -7,8 +7,10 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
@@ -29,82 +31,80 @@ class ProductController extends Controller
         return view('admin.product.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(ProductStoreRequest $request)
+    public function store(ProductStoreRequest $request): RedirectResponse
     {
         // Create a new product instance
         $product = new Product();
 
-        // Check and upload main product image (first image as default)
-        if ($request->hasFile('images')) {
-            $image = $request->file('images')[0]; // Get first image
-            $fileName = $image->store('products', 'public');
-            $filePath = 'uploads/' . $fileName;
-            $product->image = $filePath; // Store path in the product table
-        } else {
-            $product->image = 'uploads/default.jpg'; // Set default image if none uploaded
+        // Vul velden vanuit request maar nog niet opslaan
+        //je kunt een request all doen omdat ik de vulbare velden in het Model heb aangegeven - zie Product model
+        $product->fill($request->all());
+
+        // Verwerk hoofdafbeelding
+        $images = $request->file('images', []);
+        $product->image = !empty($images)
+            ? 'uploads/' . $images[0]->store('products', 'public')
+            : 'uploads/default.jpg';
+
+        $product->save();
+
+
+        // Opslaan van kleuren via relatie
+        $colors = collect($request->input('colors', []))
+            ->map(fn($color) => ['name' => $color])
+            ->toArray();
+
+        //Dit kan ook als je het wat lastig lezen vind - doet hetzelfde
+//        $colors = [];
+//
+//        foreach ($request->colors ?? [] as $color) {
+//            $colors[] = ['name' => $color];
+//        }
+
+
+        //Zie Product model voor de relatie - zie dat ik het product_id uit de fillebale velden heb gehaald - dat regeld de relatie
+        if (!empty($colors)) {
+            $product->colors()->createMany($colors);
         }
 
-        // Assign other product attributes
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->short_description = $request->short_description;
-        $product->qty = $request->qty;
-        $product->sku = $request->sku;
-        $product->description = $request->description;
-        $product->save(); // Save the product
+        // Opslaan van extra afbeeldingen via relatie
+        $imagesData = collect($images)
+            ->map(fn($image) => ['path' => 'uploads/' . $image->store('products', 'public')])
+            ->toArray();
 
-        // Save associated colors if provided
-        if ($request->has('colors') && !empty($request->colors)) {
-            foreach ($request->colors as $color) {
-                ProductColor::create([
-                    'product_id' => $product->id,
-                    'name' => $color
-                ]);
-            }
+        if (!empty($imagesData)) {
+            $product->images()->createMany($imagesData);
         }
 
-        // Save multiple product images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $fileName = $image->store('products', 'public');
-                $filePath = 'uploads/' . $fileName;
-                
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'image_path' => $filePath // Ensure correct column name
-                ]);
-            }
-        }
-
-        return redirect()->back()->with('success', 'Product added successfully!');
+        // Redirect of response
+        return redirect()->route('product.index')->with('success', 'Product succesvol aangemaakt.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
+        //ophalen van de images en colors van een product via de relatie
+        dd($product->images, $product->colors);
+
         // Implement product display logic if needed
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Product $product): View
     {
-        $product = Product::with(['colors', 'images'])->findOrFail($id);
-        $colors = $product->colors->pluck('name')->toArray();
-        return view('admin.product.edit', compact('product', 'colors'));
+        return view('admin.product.edit', [
+            'product' => $product
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
+        dd($request->all(), $product);
+
         // Implement product update logic if needed
     }
 
