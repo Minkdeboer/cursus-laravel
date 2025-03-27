@@ -14,7 +14,7 @@ class Product extends Model
 
     }
 
-    function Images() {
+    function images() {
         return $this->hasMany(ProductImage::class);
         
     }

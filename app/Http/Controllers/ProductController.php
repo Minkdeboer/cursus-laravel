@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Product;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use File;
 
 class ProductController extends Controller
 {
@@ -43,8 +45,7 @@ class ProductController extends Controller
             $fileName = $image->store('products', 'public');
             $filePath = 'uploads/' . $fileName;
             $product->image = $filePath; // Store path in the product table
-        } else {
-            $product->image = 'uploads/default.jpg'; // Set default image if none uploaded
+       
         }
 
         // Assign other product attributes
@@ -103,9 +104,66 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductUpdateRequest $request, string $id)
     {
-        // Implement product update logic if needed
+            $product =  Product::findOrFail($id);
+    
+            // Check and upload main product image (first image as default)
+            if ($request->hasFile('images')) {
+                File::delete(public_path($product->image)); // Delete old image
+                $image = $request->file('images')[0]; // Get first image
+                $fileName = $image->store('products', 'public');
+                $filePath = 'uploads/' . $fileName;
+                $product->image = $filePath; // Store path in the product table
+            }
+    
+            // Assign other product attributes
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->short_description = $request->short_description;
+            $product->qty = $request->qty;
+            $product->sku = $request->sku;
+            $product->description = $request->description;
+            $product->save(); // Save the product
+    
+            // Save associated colors if provided
+            if ($request->has('colors') && !empty($request->colors)) {
+
+                foreach ($product->colors as $color) {
+                    $color->delete(); // Delete old colors
+                }
+
+                foreach ($request->colors as $color) {
+                    ProductColor::create([
+                        'product_id' => $product->id,
+                        'name' => $color
+                    ]);
+                }
+            }
+    
+            // Save multiple product images
+            if ($request->hasFile('images')) {
+
+                foreach ($product->images as $image) {
+                    File::delete(public_path($image->image_path)); // Delete old images
+                    
+                }
+                $product->images()->delete(); // Delete old images
+
+                foreach ($request->file('images') as $image) {
+                    $fileName = $image->store('products', 'public');
+                    $filePath = 'uploads/' . $fileName;
+                    
+                    ProductImage::create([
+                        'product_id' => $product->id,
+                        'image_path' => $filePath // Ensure correct column name
+                    ]);
+                }
+            }
+    
+            return redirect()->back()->with('success', 'Product added successfully!');
+        
+    
     }
 
     /**
@@ -113,6 +171,13 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        // Implement product delete logic if needed
+       $product = Product::findOrFail($id);
+       $product->colors()->delete();
+       File::delete(public_path($product->image));
+       foreach ($product->images as $image) {
+           File::delete(public_path($image->image_path));
+       }
+       $product->delete();
+
     }
 }

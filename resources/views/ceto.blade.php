@@ -15,9 +15,8 @@
                     <a href="{{ route('product.index') }}" class="btn btn-primary">Go Back</a>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('product.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                         <div class="form-group">
                             <div>
                                 <img style="max-width: 100px;" src="{{ asset($product->image) }}">
@@ -27,7 +26,12 @@
                         </div>
                         @foreach ($product->images as $image)
                                 <div>
-                                    <img style="max-width: 100px;" src="{{ asset($image->path) }}">
+                                    <img style="max-width: 100px; max-height: 100px;" src="{{ asset($image->path) }}">
+                                </div>
+                            @endforeach
+                            @foreach ($product->images as $image)
+                                <div>
+                                    <img style="max-width: 100px; max-height: 100px;" src="{{ asset($image->path) }}">
                                 </div>
                             @endforeach
                         <div class="form-group">

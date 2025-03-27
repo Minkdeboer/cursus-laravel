@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\ProfileController;
 use App\Mail\SendMail;
 use App\Models\User;
@@ -13,9 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
-Route::get('/', function () {
-    return view('layouts.pages.home');
-});
+Route::get('/', [ProductPageController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [ProductController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
