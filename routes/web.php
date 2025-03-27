@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', [ProductPageController::class, 'index'])->name('home');
+Route::get('/product-details/{id}', [ProductPageController::class, 'show'])->name('product-details');
 
 Route::get('/dashboard', [ProductController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

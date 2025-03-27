@@ -12,4 +12,9 @@ class ProductPageController extends Controller
         $products = Product::all();
         return view('layouts.pages.home', compact('products'));
     }
+
+    function show($id){
+        $product = Product::findOrFail($id);
+        return view('layouts.pages.product-details', compact('product'));
+    }
 }
