@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductPageController;
 use App\Http\Controllers\ProfileController;
+use App\Jobs\SendWelcomeEmail;
 use App\Mail\SendMail;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
@@ -18,6 +20,14 @@ Route::get('/', [ProductPageController::class, 'index'])->name('home');
 Route::get('/product-details/{id}', [ProductPageController::class, 'show'])->name('product-details');
 
 Route::get('/dashboard', [ProductController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/send', function(){
+    $user = User::find(1);
+    dispatch(new SendWelcomeEmail($user));
+    dd("Email Sent");
+});
+
+Route::post('/add-to-cart/{id}', [AddToCartController::class, 'store'])->name('add-to-cart');
 
 
 Route::middleware('auth')->group(function () {
@@ -45,7 +55,6 @@ Route::prefix('product')->as('product.')->middleware(['auth'])->group(function (
     Route::post('{product}/destroy', [ProductController::class, 'destroy'])->name('destroy');
 
 });
-
 
 // Route::get('/user/dashboard', function(){
 //     // $user = Auth::user();

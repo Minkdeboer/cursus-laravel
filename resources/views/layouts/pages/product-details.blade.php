@@ -52,11 +52,11 @@
                         <h6 class="mt_30">Color</h6>
                         <select class="select_2" name="state">
                             <option value="AL">Select Color</option>
-                            <option value="">Red</option>
-                            <option value="">Yellow</option>
-                            <option value="">Blue</option>
-                            <option value="">Green</option>
-                            <option value="">Yellow</option>
+                           @foreach ($product->colors as $color)
+                                <option value="{{ $color->id }}">{{ $color->name }}</option>
+                            @endforeach
+                               
+                           
                         </select>
 
 
@@ -69,7 +69,7 @@
                             <div class="wsus__buy_cart_button">
                                 <a href="#" class="cart"><img src="images/cart_icon_black.svg" alt="cart"
                                         class="img-fluid w-100"></a>
-                                <a href="cart.html" class="common_btn">Buy Now</a>
+                                <a href="" class="common_btn add-to-cart" data-id="{{ $product->id }}">Add to Cart</a>
                             </div>
                         </div>
                         <ul class="wishlist d-flex flex-wrap">
@@ -147,4 +147,28 @@
     <!--============================
        PRODUCT DETAILS END
     =============================-->
+
+   <x-slot name="scripts">
+        <script>
+            $(document).ready(function(){
+                $(".add-to-cart").on("click", function(e){
+                    e.preventDefault();
+                    let id = $(this).data('id');
+                    $.ajax({
+                        method: "POST",
+                        url: "{{ route('add-to-cart', ':id') }}".replace(':id', id),
+                        data: {
+                               _token: "{{ csrf_token() }}",
+                        },
+                        beforeSend: function(){},
+                        succes: function(data){
+                            console.log(data);
+                        },
+                        error: function(xhr, status, error){},
+ 
+                    })
+                });
+        })
+        </script>
+    </x-slot>   
 </x-app-layout>    
