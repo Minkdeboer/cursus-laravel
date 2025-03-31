@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\NewMessage;
 use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostingController;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -30,7 +32,15 @@ Route::get('/send', function(){
     dd("Email Sent");
 });
 
+Route::get('messages', function(){
+    return view('messages');
+}); 
 
+Route::get('send-message', function(){
+    event(new NewMessage("Dit is nieuw"));
+
+    dd('Message sent');
+});
 
 Route::resource('postings', PostingController::class);
 
