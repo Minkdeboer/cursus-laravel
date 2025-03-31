@@ -33,15 +33,15 @@ class PostingController extends Controller
     public function store(Request $request)
     {
 
-        event(new PostingCreateEvent());
+        $posting = new Posting();
+        $posting->title = 'Test Title';
+        $posting->description = 'Test Description';
+        $posting->save();
 
-        // $posting = new Posting();
-        // $posting->title = 'Test Title';
-        // $posting->description = 'Test Description';
-        // $posting->save();
+        event(new PostingCreateEvent("john@gmail.com"));
 
-        // // Mail::to('test@gmail.com')->send(new PostingCreateMail);
-        // dd($posting);    
+        // Mail::to('test@gmail.com')->send(new PostingCreateMail);
+        dd($posting);   
     }
 
     /**

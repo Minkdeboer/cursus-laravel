@@ -30,6 +30,8 @@ Route::get('/send', function(){
     dd("Email Sent");
 });
 
+
+
 Route::resource('postings', PostingController::class);
 
 Route::post('/add-to-cart/{id}', [AddToCartController::class, 'store'])->name('add-to-cart');

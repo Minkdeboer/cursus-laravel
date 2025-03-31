@@ -13,7 +13,7 @@ class PostingObserver
      */
     public function created(Posting $posting): void
     {
-        Mail::to('test@gmail.com')->send(new PostingCreateMail);
+
     }
 
     /**

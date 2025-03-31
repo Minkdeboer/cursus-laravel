@@ -3,8 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\PostingCreateEvent;
+use App\Mail\PostingCreateMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
 class PostingCreateListener
 {
@@ -21,6 +23,6 @@ class PostingCreateListener
      */
     public function handle(PostingCreateEvent $event): void
     {
-       dd("Call from LISTENER");
+        Mail::to($event->email)->send(new PostingCreateMail);
     }
 }
