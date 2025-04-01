@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,11 +12,11 @@
         <button type="submit">Save</button>
     </form>
 </body>
-</html>
+</html> --}}
 
 
 
-{{-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -72,6 +72,10 @@
                                         </a>
                                     @endif
                                 @endauth
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit">Uitloggen</button>
+                                </form>
                             </nav>
                         @endif
                     </header>
@@ -191,4 +195,4 @@
             </div>
         </div>
     </body>
-</html> --}}
+</html>

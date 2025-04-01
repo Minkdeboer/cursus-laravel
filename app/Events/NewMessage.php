@@ -32,7 +32,7 @@ class NewMessage implements ShouldBroadcast
     {
 
         return [
-            new Channel('chat'),
+            new PrivateChannel('chat'),
         ];
     }
 }

@@ -37,7 +37,7 @@ Route::get('messages', function(){
 }); 
 
 Route::get('send-message', function(){
-    event(new NewMessage("Dit is nieuw"));
+    event(new NewMessage("Hello World"));
 
     dd('Message sent');
 });
@@ -45,7 +45,6 @@ Route::get('send-message', function(){
 Route::resource('postings', PostingController::class);
 
 Route::post('/add-to-cart/{id}', [AddToCartController::class, 'store'])->name('add-to-cart');
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
