@@ -9,18 +9,31 @@ use Illuminate\Contracts\View\View;
 class SelectInput extends Component
 {
     /**
-     * Create a new component instance.
+     * Additional data or attributes for the component.
+     *
+     * @var array
      */
-    public function __construct()
+    public array $attributes;
+
+    /**
+     * Create a new component instance.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
     {
-        //
+        $this->attributes = $attributes;
     }
 
     /**
-     * Get the view / contents that represent the component.
+     * Get the view or contents that represent the component.
+     *
+     * @return View|Closure|string
      */
     public function render(): View|Closure|string
     {
-        return view('components.select-input');
+        return view('components.select-input', [
+            'attributes' => $this->attributes,
+        ]);
     }
 }
