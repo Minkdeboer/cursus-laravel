@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="user_id" content="{{ @Auth::user()?->id }}">
-    <title>Document</title>
-    @vite ('resources/js/echo.js')
+    <meta name="user_id" content="{{ Auth::user()?->id }}">
+    <title>Messages</title>
+    @vite('resources/js/echo.js')
 </head>
 <body>
-   <h1>Messages</h1>
-   <div id="messages">
-    
-   </div>
+    <h1>Messages</h1>
+    <div id="messages"></div>
 </body>
-</html> 
+</html>

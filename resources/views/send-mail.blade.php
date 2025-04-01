@@ -10,10 +10,10 @@
     <div>
         <form action="{{ route('send.mail') }}" method="POST">
             @csrf
-            <label for="">Email</label>
-            <input type="email" name="email">
-            <label for="">Message</label>
-            <input type="text" name="message">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
             <button type="submit">Send</button>
         </form>
     </div>
