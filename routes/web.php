@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\NewMessage;
+use App\Facades\Notification;
 use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostingController;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\KaasController;
 use App\Http\Controllers\SampleController;
 use App\Services\NotificationService;
 
@@ -25,16 +27,22 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// Route::resource('test', SampleController::class);
+Route::resource('test', SampleController::class);
 
-Route::get('test', function(){
-    dd(app());
-});
+// Route::get('test', function(){
+//     dd(app());
+// });
+
+Route::resource('kaas', KaasController::class);
 
 Route::get('get', function(){
-    $notification = app(NotificationService::class);
-    dd($notification->send('Hallo', 'test@gmail.com'));
+    // $notification = app(NotificationService::class);
+    // dd($notification->send('Hallo', 'test@gmail.com'));
+
+    $notification =Notification::send('Hallo', 'test@gmail.com');
+    dd($notification);
 });
+
 
 Route::get('/product-details/{id}', [ProductPageController::class, 'show'])->name('product-details');
 

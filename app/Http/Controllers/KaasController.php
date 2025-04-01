@@ -2,29 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\ImageUpload;
+use App\Http\Controllers\Controller;
+use App\Models\Kaas;
 use Illuminate\Http\Request;
 
-class SampleController extends Controller
+class KaasController extends Controller
 {
-
-    // use ImageUpload;
-
-    protected $request;
-
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
-
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        return makeSlug('Dit is een test');
-        // $this->handleZipFile();
-        // return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, $request->id ?? 'Geen ID'];
+        //
     }
 
     /**
@@ -46,9 +35,9 @@ class SampleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Kaas $kaa)
     {
-        //
+        return $kaa;
     }
 
     /**
