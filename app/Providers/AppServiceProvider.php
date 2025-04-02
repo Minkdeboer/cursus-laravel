@@ -2,11 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Post;
-use App\Models\Posting;
-use App\Models\User;
-use App\Observers\PostingObserver;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,9 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        app()->bind('first_class', function ($app) {
-            dd ("Dit is mijn eerste service class");
-        });
+        //
     }
 
     /**
@@ -26,10 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Gate::define('update-post', function(User $user, Post $post){
-            
-        // });
-
-        Posting::observe(PostingObserver::class);
+        ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
+            return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
+        });
     }
 }
