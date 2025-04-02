@@ -13,7 +13,7 @@ class KaasController extends Controller
      */
     public function index()
     {
-        //
+        // Code for displaying a list of resources can be added here
     }
 
     /**
@@ -21,7 +21,7 @@ class KaasController extends Controller
      */
     public function create()
     {
-        //
+        // Code for showing the form to create a new resource can be added here
     }
 
     /**
@@ -29,7 +29,7 @@ class KaasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Code for storing a new resource can be added here
     }
 
     /**
@@ -37,7 +37,7 @@ class KaasController extends Controller
      */
     public function show(Kaas $kaa)
     {
-        return $kaa;
+        return response()->json($kaa);
     }
 
     /**
@@ -45,7 +45,7 @@ class KaasController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // Code for showing the form to edit a resource can be added here
     }
 
     /**
@@ -53,7 +53,7 @@ class KaasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Code for updating a resource can be added here
     }
 
     /**
@@ -61,6 +61,6 @@ class KaasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Code for deleting a resource can be added here
     }
 }

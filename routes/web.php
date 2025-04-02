@@ -46,7 +46,7 @@ Route::get('get', function(){
 
 Route::get('/product-details/{id}', [ProductPageController::class, 'show'])->name('product-details');
 
-Route::get('/dashboard', [ProductController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', [ProductController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/send', function(){
     $user = User::find(1);
@@ -78,21 +78,21 @@ require __DIR__.'/auth.php';
 
 //Route::resource('product', ProductController::class);
 
-//je kunt ook een groep aanmaken voor de routes product - is leesbaarder dan een resource (vind ik)
-Route::prefix('product')->as('product.')->middleware(['auth'])->group(function () {
+// //je kunt ook een groep aanmaken voor de routes product - is leesbaarder dan een resource (vind ik)
+// Route::prefix('product')->as('product.')->middleware(['auth'])->group(function () {
 
-    //GET
-    Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('create', [ProductController::class, 'create'])->name('create');
-    Route::get('{product}/edit', [ProductController::class, 'edit'])->name('edit');
-    Route::get('{product}/show', [ProductController::class, 'show'])->name('show');
+//     //GET
+//     Route::get('/', [ProductController::class, 'index'])->name('index');
+//     Route::get('create', [ProductController::class, 'create'])->name('create');
+//     Route::get('{product}/edit', [ProductController::class, 'edit'])->name('edit');
+//     Route::get('{product}/show', [ProductController::class, 'show'])->name('show');
 
-    //POST
-    Route::post('store', [ProductController::class, 'store'])->name('store');
-    Route::post('{product}/update', [ProductController::class, 'update'])->name('update');
-    Route::post('{product}/destroy', [ProductController::class, 'destroy'])->name('destroy');
+//     //POST
+//     Route::post('store', [ProductController::class, 'store'])->name('store');
+//     Route::post('{product}/update', [ProductController::class, 'update'])->name('update');
+//     Route::post('{product}/destroy', [ProductController::class, 'destroy'])->name('destroy');
 
-});
+// });
 
 // Route::get('/user/dashboard', function(){
 //     // $user = Auth::user();

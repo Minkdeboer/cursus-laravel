@@ -17,4 +17,30 @@ class ProductPageController extends Controller
         $product = Product::findOrFail($id);
         return view('layouts.pages.product-details', compact('product'));
     }
+
+    function create(){
+        return view('layouts.pages.create-product');
+    }
+
+    function store(Request $request){
+        $product = Product::create($request->all());
+        return redirect()->route('product.show', $product->id);
+    }
+
+    function edit($id){
+        $product = Product::findOrFail($id);
+        return view('layouts.pages.edit-product', compact('product'));
+    }
+
+    function update(Request $request, $id){
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+        return redirect()->route('product.show', $product->id);
+    }
+
+    function destroy($id){
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('product.index');
+    }
 }
