@@ -24,6 +24,11 @@ use App\Http\Controllers\SampleController;
 use App\Services\NotificationService;
 
 Route::get('/', function () {
+    if (! in_array(request('locale'), ['en', 'nl'])) {
+        return abort(404);
+    }
+
+    app()->setLocale(request('locale'));
     return view('welcome');
 })->name('home');
 
