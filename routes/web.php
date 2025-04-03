@@ -12,6 +12,9 @@ Route::get('/dashboard', [ChatController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard'); // Define the route for the dashboard
 
+Route::get('fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');
+// Define the route for fetching messages
+
 require __DIR__.'/auth.php';
 
 // Ensure the login route is defined and supports GET for displaying the login form
