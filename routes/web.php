@@ -2,16 +2,15 @@
 
 use App\Http\Controllers\ChatController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome'); // Display the welcome.blade.php view
 })->name('home'); // Define the route name as 'home'
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// });
-
-Route::get('/dashboard', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard'); // Define the route for the dashboard
+Route::get('/dashboard', [ChatController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard'); // Define the route for the dashboard
 
 require __DIR__.'/auth.php';
 
@@ -23,3 +22,4 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register'); // Adjust the view path if necessary
 })->name('register');
+
