@@ -12,6 +12,11 @@ Route::get('/dashboard', [ChatController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard'); // Define the route for the dashboard
 
+    Route::get('/fetch-messages', function () {
+        // Return a response or data for the fetch-messages endpoint
+        return response()->json(['messages' => []]);
+    });
+
 Route::get('fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');
 // Define the route for fetching messages
 

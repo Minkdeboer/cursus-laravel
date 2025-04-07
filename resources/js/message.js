@@ -1,22 +1,32 @@
-const selectedContact = $('meta[name="setected_contact"]');
+const selectedContact = $('meta[name="selected_contact"]');
+const baseUrl = $('meta[name="base_url"]').attr('content');
 
-function FetchMessages() {
+function fetchMessages() {
     let contactId = selectedContact.attr('content');
-    $.ajax ({
-        method: 'GET',
-        url: '',
-        data: {},
-        beforeSend: function () {},
-        succes: function (data) {},
-        error: function (xhr, status, error) {}
-    })
 
+    $.ajax({
+        method: 'GET',
+        url: baseUrl + '/fetch-messages',
+        data: {
+            contact_id: contactId
+        },
+        beforeSend: function () {
+            console.log('Fetching messages...');
+        },
+        success: function (data) {
+            console.log('Messages received:', data);
+            // You can update the DOM with messages here
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching messages:', error);
+        }
+    });
 }
 
-$(document).ready(function() {
-   $('.contact').on('click', function() {
-    let contactId = $(this).data('id');
-    selectedContact.attr('content', contactId);
-    console.log(selectedContact.attr('content'));
-   })
-});    
+$(document).ready(function () {
+    $('.contact').on('click', function () {
+        let contactId = $(this).data('id');
+        selectedContact.attr('content', contactId);
+        fetchMessages();
+    });
+});

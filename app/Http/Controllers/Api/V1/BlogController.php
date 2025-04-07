@@ -23,4 +23,9 @@ class BlogController extends Controller
         $post->save();
         return response()->json($post, 201);
     }
+
+    function show($id) {
+        $post = Blog::findOrFail($id);
+        return response()->json($post, 200);
+    }
 }
