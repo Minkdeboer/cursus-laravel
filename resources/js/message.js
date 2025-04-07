@@ -15,12 +15,33 @@ function fetchMessages() {
         },
         success: function (data) {
             console.log('Messages received:', data);
-            // You can update the DOM with messages here
+        setContactInfo(data.contact);    
         },
         error: function (xhr, status, error) {
             console.error('Error fetching messages:', error);
         }
     });
+
+    function sendMessage() {
+        let contactId = selectedContact.attr('content');
+        let formData = $('.message-form').serialize();
+        $.ajax({
+            method: 'POST',
+            url: baseUrl + '/send-message',
+            data: {
+                formData,
+                contact_id: contactId
+            },
+            succes: function() {},
+            error: function(xhr, status, error) {},
+                
+        })
+    }
+}
+
+function setContactInfo(contact) {
+    $('.contact-name').text(contact.name);
+
 }
 
 $(document).ready(function () {
@@ -29,4 +50,9 @@ $(document).ready(function () {
         selectedContact.attr('content', contactId);
         fetchMessages();
     });
+
+    $('.message-form').on('submit', function(e){
+      e.preventDefault();
+        sendMessage();
+    })
 });

@@ -18,6 +18,7 @@ Route::get('/dashboard', [ChatController::class, 'index'])
     });
 
 Route::get('fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');
+Route::post('send-message', [ChatController::class, 'sendMessages'])->name('send-message');
 // Define the route for fetching messages
 
 require __DIR__.'/auth.php';
