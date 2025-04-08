@@ -35,6 +35,8 @@ function fetchMessages() {
             console.error('Error fetching messages:', error);
         }
     });
+
+    scrollToBottom();
 }
 
 function sendMessage() {
@@ -49,6 +51,7 @@ function sendMessage() {
            let message = messageBox.val();
            inbox.append(messageTemplate(message, 'replies'));
            messageBox.val(''); 
+           scrollToBottom();
         },
         success: function() {
             console.log('Message sent successfully');
@@ -62,6 +65,12 @@ function sendMessage() {
 
 function setContactInfo(contact) {
     $('.contact-name').text(contact.name);
+}
+
+function scrollToBottom() {
+    $('.messages').stop().animate({
+        scrollTop: $('.messages')[0].scrollHeight
+    });
 }
 
 $(document).ready(function () {
@@ -85,5 +94,39 @@ window.Echo.private('message.' + authId)
      if(e.from_id == selectedContact.attr('content')) {
   
      inbox.append(messageTemplate(e.text, 'sent'));
+     scrollToBottom();
      }
-});        
+});   
+
+window.Echo.join('online')
+    .here (users => {
+
+     users.forEach(user => {
+        let element = $(`.contact[data-id="${user.id}"]`)
+        if (element.length > 0) {
+            element.find('.contact-status').removeClass('offline')
+            element.find('.contact-status').addClass('online');
+        }else {
+            element.find('.contact-status').removeClass('online')
+            element.find('.contact-status').addClass('offline');
+        }
+       
+       
+     });
+
+    //  $('.contact').each(function(){
+    //     console.log($(this));
+    //  })
+    })
+    .joining(user => {
+        let element = $(`.contact[data-id="${user.id}"]`)
+        element.find('.contact-status').removeClass('offline')
+        element.find('.contact-status').addClass('online');
+
+    })
+    .leaving(user => {
+        let element = $(`.contact[data-id="${user.id}"]`)
+        element.find('.contact-status').removeClass('online')
+        element.find('.contact-status').addClass('offline');
+    })
+        
