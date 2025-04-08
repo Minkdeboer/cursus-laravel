@@ -27,7 +27,7 @@ Route::get('/register', function () {
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
-    Route::get('/dashboard', [ChatController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [NoteController::class, 'index'])->name('dashboard');
 
     // Messaging
     Route::get('/fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');
