@@ -9,7 +9,7 @@
         <i class="far fa-plus"></i>
     </div>
 
-   <x-note-create-model />
+   <x-note.create-modal />
 
     <div class="row">
         <div class="col-xxl-3 col-md-6 col-xl-4">

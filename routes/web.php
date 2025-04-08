@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\NoteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,5 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');
     Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send-message');
 });
+
+Route::resource('notes', NoteController::class);
 
 require __DIR__.'/auth.php';
