@@ -1,5 +1,11 @@
 const selectedContact = $('meta[name="selected_contact"]');
+const authId = $('meta[name="auth_id"]').attr('content');
 const baseUrl = $('meta[name="base_url"]').attr('content');
+const inbox = $('.messages ul');
+
+function messageTemplate(text, className) {
+    return `<li class="${className}"><img src="${baseUrl}" alt="" /><p>${text}</p></li>`;
+}
 
 function fetchMessages() {
     let contactId = selectedContact.attr('content');
@@ -15,7 +21,15 @@ function fetchMessages() {
         },
         success: function (data) {
             console.log('Messages received:', data);
-            setContactInfo(data.contact);    
+            setContactInfo(data.contact); 
+            inbox.empty(); 
+            data.messages.forEach(value => {
+            if(value.form_id == contactId) {
+            inbox.append(messageTemplate(value.message, 'sent'));
+            }else{
+            inbox.append(messageTemplate(value.message, 'replies'));
+            }
+            });
         },
         error: function (xhr, status, error) {
             console.error('Error fetching messages:', error);
@@ -26,10 +40,16 @@ function fetchMessages() {
 function sendMessage() {
     let contactId = selectedContact.attr('content');
     let formData = $('.message-form').serialize();
+    let messageBox = $('.message-box');
     $.ajax({ 
         method: 'POST',
         url: baseUrl + '/send-message',
         data: formData + '&contact_id=' + contactId,
+        beforeSend: function () {
+           let message = messageBox.val();
+           inbox.append(messageTemplate(message, 'replies'));
+           messageBox.val(''); 
+        },
         success: function() {
             console.log('Message sent successfully');
             fetchMessages();  // Optionally, re-fetch messages after sending one
@@ -45,16 +65,25 @@ function setContactInfo(contact) {
 }
 
 $(document).ready(function () {
-    // When a contact is clicked, set the selected contact ID and fetch messages
     $('.contact').on('click', function () {
         let contactId = $(this).data('id');
         selectedContact.attr('content', contactId);
-        fetchMessages();  // Fetch the messages for the selected contact
+
+        $('.blank-wrap').addClass('d-none');
+
+        fetchMessages();
     });
 
-    // Submit the message form
     $('.message-form').on('submit', function(e) {
         e.preventDefault();
         sendMessage();
     });
 });
+
+window.Echo.private('message.' + authId)
+    .listen('SendMessageEvent', (e) => {
+     if(e.from_id == selectedContact.attr('content')) {
+  
+     inbox.append(messageTemplate(e.text, 'sent'));
+     }
+});        

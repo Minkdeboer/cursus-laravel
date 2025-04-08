@@ -9,8 +9,13 @@
         @include('layouts.sidebar')
 
         <div class="content">
+            {{-- <div class="blank-wrap">
+                <div class="inner-blank-wrap">Select a contact to start messaging</div>
+            </div> --}}
+
             {{-- Optional loader --}}
             {{-- 
+            
             <div class="loader d-none">
                 <div class="loader-inner">
                     <l-square
@@ -35,8 +40,7 @@
 
             <div class="messages">
                 <ul>
-                    <x-message class="sent" text="hello"/>
-                    <x-message class="replies" text="hi"/>
+                    
                 </ul>
             </div>
 
@@ -44,7 +48,7 @@
                 <form action="{{ route('send-message') }}" method="POST" class="message-form">
                     @csrf
                     <div class="wrap">
-                        <input type="text" placeholder="Write your message..." name="message" />
+                        <input autocomplete="off" type="text" placeholder="Write your message..." name="message" class="message-box"/>
                         <button type="submit" class="submit">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>
                         </button>
