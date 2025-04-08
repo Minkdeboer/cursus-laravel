@@ -13,8 +13,8 @@
 </head>
 
 <body>
-
-
+    
+</body>
     @include('layouts.header')
 
     <div class="content_area d-flex flex-wrap">
@@ -23,10 +23,9 @@
         <div class="main_content">
 
           {{ $slot }}
-          
+
         </div>
     </div>
-
 
     <!--jquery library js-->
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}"></script>
