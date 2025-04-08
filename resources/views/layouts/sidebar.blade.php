@@ -1,4 +1,14 @@
-<div id="sidepanel">
+<aside class="sidebar">
+    <ul>
+        <li><a class="active" href="#"><i class="far fa-lightbulb"></i> <span>Notes</span></a></li>
+        <li><a href="#"><i class="far fa-bell"></i> <span>reminder</span></a></li>
+        <li><a href="#"><i class="far fa-pen"></i> <span>edit label</span></a></li>
+        <li><a href="#"><i class="far fa-box-alt"></i> <span>achive</span></a></li>
+        <li><a href="#"><i class="far fa-trash-alt"></i> <span>bin</span></a></li>
+    </ul>
+</aside>
+
+{{-- <div id="sidepanel">
     <div id="profile">
         <div class="wrap">
             <img id="profile-img" src="{{ asset('default-images/avatar.jpg') }}" class="online" alt="" />
@@ -43,12 +53,12 @@
         </ul>
     </div>
 
-    {{-- <div style="text-align: center;">
+    <div style="text-align: center;">
         <form action="{{ route('logout.php') }}">
             @csrf
             @method('POST')
             <button type="submit" class="btn btn-danger">Logout</button>
         </form>
-    </div> --}}
+    </div>
   
-</div>
+</div> --}}
