@@ -15,8 +15,6 @@
        
        <x-note.note-card :notes="$notes" />
 
-        
-
     </div>
 
 </x-app-layout>
