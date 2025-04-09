@@ -10,6 +10,15 @@
 <body class="bg-light">
     <div class="container py-5">
         <h1 class="text-center mb-4">User List</h1>
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-8">
+                <form method="GET" action="{{ route('users.index') }}" class="d-flex mb-3">
+                    <input type="text" name="search" class="form-control me-2" placeholder="Search users..." value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <a href="{{ route('users.create') }}" class="btn btn-success mb-3">Add New User</a>
+            </div>
+        </div>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow-sm">
