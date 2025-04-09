@@ -22,7 +22,7 @@ class NoteController extends Controller
      */
     public function create()
     {
-        return view ('com')
+        
     }
 
     /**
@@ -60,7 +60,14 @@ class NoteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $note = Note::findOrFail($id);
+        $note->update ([
+            'user_id' => auth()->user()->id,
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->back();
     }
 
     /**
