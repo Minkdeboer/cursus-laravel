@@ -23,10 +23,23 @@
             {{-- Add to Cart Button --}}
             <form method="POST" action="{{ route('cart.add', $product->id) }}">
                 @csrf
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                    <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
+                </div>
                 <button type="submit" class="btn btn-primary btn-lg">
                     <i class="bi bi-cart-plus me-2"></i> Add to Cart
                 </button>
             </form>
+
+            <div class="mt-4">
+                <a href="{{ route('shop.index') }}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left me-2"></i> Continue Shopping
+                </a>
+                <a href="{{ route('cart.index') }}" class="btn btn-success">
+                    <i class="bi bi-cart me-2"></i> View Cart
+                </a>
+            </div>
         </div>
     </div>
 

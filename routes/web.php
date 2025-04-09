@@ -36,4 +36,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::resource('notes', NoteController::class);
 
+Route::get('/shop', function () {
+    return view('shop-view');
+})->name('shop');
+
 require __DIR__.'/auth.php';

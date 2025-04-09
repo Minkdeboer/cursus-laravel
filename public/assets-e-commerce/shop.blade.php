@@ -8,7 +8,10 @@
 
     {{-- Filter/Search (optional) --}}
     <form method="GET" action="{{ route('shop.index') }}" class="mb-4">
-        <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ request('search') }}">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
     </form>
 
     {{-- Products Grid --}}
@@ -22,6 +25,13 @@
                         <p class="card-text text-muted">{{ Str::limit($product->description, 100) }}</p>
                         <p class="mt-auto fw-bold">${{ number_format($product->price, 2) }}</p>
                         <a href="{{ route('shop.show', $product->id) }}" class="btn btn-primary mt-2">View Details</a>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <p class="text-muted">No products found. Try adjusting your search or filters.</p>
+        @endforelse
+    </div>
                     </div>
                 </div>
             </div>
