@@ -28,20 +28,21 @@ Route::get('/test', function () {
     return view('test');
 })->name('test');
 
+Route::get('/shop', function () {
+    return view('shop-view');
+})->name('shop');
+
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [NoteController::class, 'index'])->name('dashboard');
 
+    // Notes CRUD
+    Route::resource('notes', NoteController::class);
+
     // Messaging
     Route::get('/fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');
     Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send-message');
 });
-
-Route::resource('notes', NoteController::class);
-
-Route::get('/shop', function () {
-    return view('shop-view');
-})->name('shop');
 
 require __DIR__.'/auth.php';
