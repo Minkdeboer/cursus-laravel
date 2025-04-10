@@ -8,7 +8,7 @@
     </ul>
 </aside>
 
-<div id="sidepanel">
+{{-- <div id="sidepanel">
     <div id="profile">
         <div class="wrap">
             <img id="profile-img" src="{{ asset('default-images/avatar.jpg') }}" class="online" alt="" />
@@ -61,4 +61,4 @@
         </form>
     </div>
   
-</div>
+</div> --}}
