@@ -16,21 +16,18 @@ class NoteController extends Controller
         $notes = Note::where('user_id', auth()->user()->id)->latest()->get();
         return view('dashboard', compact('notes'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        Note::create ([
+        Note::create([
             'user_id' => auth()->user()->id,
             'title' => $request->title,
             'content' => $request->content,
@@ -61,7 +58,7 @@ class NoteController extends Controller
     public function update(Request $request, string $id)
     {
         $note = Note::findOrFail($id);
-        $note->update ([
+        $note->update([
             'user_id' => auth()->user()->id,
             'title' => $request->title,
             'content' => $request->content,

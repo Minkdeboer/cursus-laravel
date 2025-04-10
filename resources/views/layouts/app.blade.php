@@ -36,6 +36,7 @@
 
     <!--main/custom js-->
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/note.js') }}"></script>
 
 </body>
 

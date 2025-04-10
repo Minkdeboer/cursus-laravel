@@ -14,12 +14,9 @@
                     <div class="theme_area">
                         <ul class="theme_color">
                             <li><a class="white active" href="#"><i class="far fa-tint-slash"></i></a></li>
-                            <li><a class="red" href="#"></a></li>
-                            <li><a class="blue" href="#"></a></li>
-                            <li><a class="yellow" href="#"></a></li>
-                            <li><a class="green" href="#"></a></li>
-                            <li><a class="purple" href="#"></a></li>
-                            <li><a class="orange" href="#"></a></li>
+                            @foreach(config('appearance.colors') as $color)
+                                <li data-color="{{ $color }}" data-type="color" data-id="{{ $note->id }}"><a class="red" style="background: {{ $color }}" href="javascript:;"></a></li>
+                            @endforeach
                         </ul>
                         <ul class="theme_img">
                             <li><a class="img_1 close active" href="#"></a></li>
