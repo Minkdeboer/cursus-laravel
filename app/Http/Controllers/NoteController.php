@@ -16,7 +16,7 @@ class NoteController extends Controller
         $notes = Note::where('user_id', auth()->user()->id)->latest()->get();
         return view('dashboard', compact('notes'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */
