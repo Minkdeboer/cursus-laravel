@@ -41,4 +41,23 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 3000);
     }
-});
+
+    // New Feature: Add to Cart Button
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            showToast('Item added to cart!');
+            // Optional: Add logic to update cart count
+            updateCartCount();
+        });
+    });
+
+    function updateCartCount() {
+        const cartCount = document.querySelector('.cart-count');
+        if (cartCount) {
+            cartCount.textContent = parseInt(cartCount.textContent) + 1;
+        }
+    }
+
+        //
+    });

@@ -114,9 +114,9 @@ window.Echo.join('online')
        
      });
 
-    //  $('.contact').each(function(){
-    //     console.log($(this));
-    //  })
+     $('.contact').each(function(){
+        console.log($(this));
+     })
     })
     .joining(user => {
         let element = $(`.contact[data-id="${user.id}"]`)

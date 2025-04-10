@@ -77,6 +77,7 @@ $(function () {
         $(".custom_modal_area.show_modal").each(function () {
             if (!$(event.target).closest('.custom_modal_content').length) {
                 $(this).removeClass("show_modal");
+                conslole.log("Modal closed");
             }
         });
     });
