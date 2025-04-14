@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [NoteController::class, 'index'])->name('dashboard');
 
+    Route::post('notes/appearance', [NoteController::class, 'changeAppearance'])->name('notes.appearance');
     // Notes CRUD
     Route::resource('notes', NoteController::class);
 

@@ -17,6 +17,11 @@ class NoteController extends Controller
         return view('dashboard', compact('notes'));
     }
 
+    function changeAppearance(Request $request)
+    {
+        return $request->all();
+    }
+
     /**
      * Show the form for creating a new resource.
      */

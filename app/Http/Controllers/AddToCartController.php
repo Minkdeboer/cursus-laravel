@@ -29,7 +29,7 @@ class AddToCartController extends Controller
                 'name' => $product->name,
                 'price' => $product->price,
                 'color' => 'red',
-                'qty' => 1, // Standaard hoeveelheid
+                'qty' => 1, // Standaard hoeveelheid 
             ];
         }
 

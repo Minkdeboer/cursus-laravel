@@ -15,7 +15,7 @@
                         <ul class="theme_color">
                             <li><a class="white active" href="#"><i class="far fa-tint-slash"></i></a></li>
                             @foreach(config('appearance.colors') as $color)
-                                <li data-color="{{ $color }}" data-type="color" data-id="{{ $note->id }}"><a class="red" style="background: {{ $color }}" href="javascript:;"></a></li>
+                                <li class="appearance" data-color="{{ $color }}" data-type="color" data-id="{{ $note->id }}"><a class="red" style="background: {{ $color }}" href="javascript:;"></a></li>
                             @endforeach
                         </ul>
                         <ul class="theme_img">

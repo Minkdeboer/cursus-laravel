@@ -1,15 +1,15 @@
-const csrf_tokern = $('meta[name="csrf-token"]').attr('content');
+const csrf_tokern = $('meta[name="csrf_token"]').attr('content');
 const base_url = $('meta[name="base-url"]').attr('content');
 
 function setAppearance(element) {
-    let element = $(element);
     let color = element.data('data-color');
     let type = element.data('data-type');
     let id = element.data('data-id');
     $.ajax({
         method: 'POST',
-        url: '', 
+        url: base_url + '/note/appearance', 
         data: {
+            _token: csrf_tokern,
             color: color,
             type: type,
             id: id
@@ -20,5 +20,8 @@ function setAppearance(element) {
 }
 
 $(document).ready(function () {
-  
+  $('.appearance').on('click', function () {
+    console.log('clicked');
+    setAppearance($(this));
+  });
 });
