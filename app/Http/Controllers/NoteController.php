@@ -25,6 +25,7 @@ class NoteController extends Controller
         $note->update([
             'color_name' => $request->color,
             'appearance_type' => $request->type,
+            'image_path' => $request->image,
         ]);
 
         return response()->json([

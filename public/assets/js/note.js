@@ -3,6 +3,7 @@ const base_url = $('meta[name="base_url"]').attr('content');
 
 function setAppearance(element) {
     let color = element.data('color');
+    let image = element.data('image');
     let type = element.data('type');
     let id = element.data('id');
 
@@ -12,6 +13,7 @@ function setAppearance(element) {
         data: {
             _token: csrf_token,
             color: color,
+            image: image,
             type: type,
             id: id
         },

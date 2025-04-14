@@ -20,12 +20,10 @@
                         </ul>
                         <ul class="theme_img">
                             <li><a class="img_1 close active" href="#"></a></li>
-                            <li><a class="img_2" href="#"></a></li>
-                            <li><a class="img_3" href="#"></a></li>
-                            <li><a class="img_4" href="#"></a></li>
-                            <li><a class="img_5" href="#"></a></li>
-                            <li><a class="img_6" href="#"></a></li>
-                        </ul>
+                            @foreach (config('appearance.images') as $image)
+                            <li class="appearance" data-image="{{ $image }}" data-type="image" data-id="{{ $note->id }}"><a style="background: url('{{ asset($image) }}')" class="img_2" href=""></a></li>
+                            @endforeach
+
                     </div>
                 </li>
                 <li>
