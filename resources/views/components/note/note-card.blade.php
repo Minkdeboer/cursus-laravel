@@ -1,6 +1,6 @@
 @foreach ($notes as $note)
 <div class="col-xxl-3 col-md-6 col-xl-4">
-    <div class="single_note">
+    <div class="single_note" {{ $note->color_name ? "style=background:{$note->color_name}" : '' }}>
         <a class="single_note_check" href="#"><i class="far fa-check"></i></a>
         <div class="single_note_content" data-modal="modal_{{ $note->id }}">
             <h2>{{ $note->title }}</h2>

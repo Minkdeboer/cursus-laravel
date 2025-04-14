@@ -1,4 +1,4 @@
-const csrf_token = $('meta[name="csrf_token"]').attr('content');
+const csrf_token = $('meta[name="csrf-token"]').attr('content');
 const base_url = $('meta[name="base_url"]').attr('content');
 
 function setAppearance(element) {
@@ -18,7 +18,7 @@ function setAppearance(element) {
         success: function (data) {
             console.log('Appearance updated:', data);
         },
-        error: function (xhr, status, error) {
+        error: function (error) {
             console.error('AJAX error:', error);
         }
     });
@@ -26,6 +26,7 @@ function setAppearance(element) {
 
 $(document).ready(function () {
     $('.appearance').on('click', function () {
+        $(this).closest('.single_note').css('background-color', $(this).attr('data-color'));
         setAppearance($(this));
     });
 });
