@@ -13,5 +13,7 @@ class Note extends Model
         'title',
         'content',
         'user_id',
+        'color_name',
+        'appearance_type',
     ];
 }

@@ -34,14 +34,16 @@ Route::get('/shop', function () {
 
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Dashboard
+    // Dashboard view
     Route::get('/dashboard', [NoteController::class, 'index'])->name('dashboard');
 
-    Route::post('notes/appearance', [NoteController::class, 'changeAppearance'])->name('notes.appearance');
-    // Notes CRUD
+    // AJAX appearance update route (for JavaScript POST request)
+    Route::post('/note/appearance', [NoteController::class, 'changeAppearance'])->name('note.appearance');
+
+    // Full CRUD routes for notes
     Route::resource('notes', NoteController::class);
 
-    // Messaging
+    // Messaging routes
     Route::get('/fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');
     Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send-message');
 });
