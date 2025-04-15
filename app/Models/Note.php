@@ -15,5 +15,6 @@ class Note extends Model
         'user_id',
         'color_name',
         'appearance_type',
+        'image_path',
     ];
 }

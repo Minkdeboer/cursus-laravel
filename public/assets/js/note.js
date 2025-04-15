@@ -6,6 +6,12 @@ function setAppearance(element) {
     let image = element.data('image');
     let type = element.data('type');
     let id = element.data('id');
+    if(type == 'color') {
+
+    element.closest('.single_note').css('background', $(this).attr('data-color'));
+    }else {
+        element.closest('.single_note').css('background-image', 'url(' + base_url+'/'+image + ')');
+}
 
     $.ajax({
         method: 'POST',
@@ -28,7 +34,6 @@ function setAppearance(element) {
 
 $(document).ready(function () {
     $('.appearance').on('click', function () {
-        $(this).closest('.single_note').css('background-color', $(this).attr('data-color'));
         setAppearance($(this));
     });
 });
