@@ -105,6 +105,12 @@ class NoteController extends Controller
         return redirect()->back();
     }
 
+    function trash() {
+        $notes = Note::where('user_id', auth()->user()->id)
+        ->onlyTrash()->latest()->get();
+        return view('trash-bin', compact('notes'));
+    }
+
     /**
      * Remove the specified resource from storage.
      */
