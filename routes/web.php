@@ -42,6 +42,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Full CRUD routes for notes
     Route::resource('notes', NoteController::class);
+    Route::get('notes/put-archived/{id}', [NoteController::class, 'putArchived'])->name('notes.put-archived');
+    Route::get('notes/archived', [NoteController::class, 'archived'])->name('notes.archived');
 
     // Messaging routes
     Route::get('/fetch-messages', [ChatController::class, 'fetchMessages'])->name('fetch-messages');

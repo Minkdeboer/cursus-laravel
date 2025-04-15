@@ -16,5 +16,6 @@ class Note extends Model
         'color_name',
         'appearance_type',
         'image_path',
+        'archived',
     ];
 }
