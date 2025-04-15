@@ -38,12 +38,12 @@
                 <li>
                     <a class="modal_drop_list"><i class="far fa-ellipsis-v"></i></a>
                     <ul class="drop_list">
-                        <li><a href="#">delete note</a></li>
-                        <li><a href="#">add label</a></li>
-                        <li><a href="#">add drawing</a></li>
-                        <li><a href="#">make a copy</a></li>
-                        <li><a href="#">vision history</a></li>
-                    </ul>
+                        <li><a href="javascript:;" onclick="$('.delete-note-{{ $note->id }}').submit()">delete note</a></li>
+                     </ul>
+                     <form class="delete-note-{{ $note->id }}" action="{{ route('notes.destroy', $note->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                     </form>
                 </li>
             </ul>
         </div>

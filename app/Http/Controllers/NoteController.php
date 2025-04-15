@@ -47,6 +47,7 @@ class NoteController extends Controller
         ->where('id', $request->id)
         ->first();
     $note->update([
+        
         'archived' => 1,
     ]);
 
@@ -109,6 +110,9 @@ class NoteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $note = Note::findOrFail($id);
+        $note->delete();
+
+        return redirect()->back();
     }
 }
