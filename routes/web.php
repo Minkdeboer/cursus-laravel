@@ -17,8 +17,16 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/login', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
     return view('auth.login');
 })->name('login');
+
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect()->route('login');
+})->name('logout');
 
 Route::get('/register', function () {
     return view('auth.register');

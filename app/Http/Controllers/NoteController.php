@@ -44,7 +44,14 @@ class NoteController extends Controller
 
     function archived() {
         $notes = Note::where('user_id', auth()->user()->id)
-        ->where('archived', 1)->latest()->get();
+        ->where('archived', 1)
+        ->when(request()->has('search') && request()->filled('search'), function ($query) {
+            $search = request('search');
+            $query->where('title', 'like', '%'.$search.'%')
+                  ->orWhere('content', 'like', '%'.$search.'%');
+        })
+        ->latest()->get();
+
         return view('archived', compact('notes'));
     }
 
@@ -113,6 +120,11 @@ class NoteController extends Controller
 
     function trash() {
         $notes = Note::where('user_id', auth()->user()->id)
+        ->when(request()->has('search') && request()->filled('search'), function ($query){
+            $search = request('search');
+            $query->where('title', 'like', '%'.$search.'%')
+            ->orWhere('content', 'like', '%'.$search.'%');
+        })
         ->onlyTrashed()->latest()->get();
         return view('trash-bin', compact('notes'));
     }
