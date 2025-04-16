@@ -1,9 +1,6 @@
 <x-app-layout>
 
-    <div class="search_area">
-        <input type="text" placeholder="Search...">
-        <i class="far fa-search"></i>
-    </div>
+    <x-note.search-input />
 
     <div class="create_note">
         <i class="far fa-plus"></i>

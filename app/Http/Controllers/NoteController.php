@@ -13,8 +13,14 @@ class NoteController extends Controller
      */
     public function index()
     {
-        $notes = Note::where('user_id', auth()->user()->id)
-        ->where('archived', 0)->latest()->get();
+        $notes = Note::where('user_id', optional(auth()->user())->id)
+        ->where('archived', 0)
+        ->when(request()->has('search') && request()->filled('search'), function ($query){
+           $search = request('search');
+           $query->where('title', 'like', '%'.$search.'%')
+           ->orWhere('content', 'like', '%'.$search.'%');
+        })
+        ->latest()->get();
         return view('dashboard', compact('notes'));
     }
 
@@ -107,7 +113,7 @@ class NoteController extends Controller
 
     function trash() {
         $notes = Note::where('user_id', auth()->user()->id)
-        ->onlyTrash()->latest()->get();
+        ->onlyTrashed()->latest()->get();
         return view('trash-bin', compact('notes'));
     }
 
